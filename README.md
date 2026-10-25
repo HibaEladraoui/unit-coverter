@@ -24,4 +24,4 @@ Run the tests:
     python -m pytest -v
 
 ## Project Status
-Project Status: Validation and conversion history implemented.
+Unit conversion engine, input validation, and conversion history implemented.
