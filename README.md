@@ -24,4 +24,4 @@ Run the tests:
     python -m pytest -v
 
 ## Project Status
-Development in progress.
+Project Status: Validation and conversion history implemented.
