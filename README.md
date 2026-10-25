@@ -25,15 +25,3 @@ Run the tests:
 
 ## Project Status
 Development in progress.
-
-## Summary
-- Implemented length, weight, and temperature conversion functions.
-- Added validation for unsupported units and temperatures below absolute zero.
-- Added nine unit tests covering valid conversions and invalid inputs.
-
-## Testing
-- Executed `python -m pytest -v`.
-- **Result: 9 tests passed.**
-
-## Review
-Please review the conversion functions and test coverage before merging.
