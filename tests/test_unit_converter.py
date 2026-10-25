@@ -31,3 +31,16 @@ def test_fahrenheit_to_celsius():
 def test_temperature_below_absolute_zero():
     with pytest.raises(ValueError):
         convert_temperature(-300, "C", "K")
+
+def test_miles_to_kilometers():
+    result = convert_length(1, "mi", "km")
+    assert result == pytest.approx(1.609344)
+
+
+def test_unsupported_weight_unit():
+    with pytest.raises(ValueError):
+        convert_weight(5, "kg", "stone")
+
+
+def test_kelvin_to_celsius():
+    assert convert_temperature(273.15, "K", "C") == pytest.approx(0)
