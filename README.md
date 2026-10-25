@@ -11,7 +11,7 @@ A Python application for converting common measurement units.
 ## Team Members
 - Member A: Hiba El Adraoui — Unit conversion engine
 - Member B: To be confirmed
-- Member C: To be confirmed
+- Member C: Hanae Cherkaoui - input validation, conversion history, GitHub Pages
 
 ## Installation
 Install dependencies:
@@ -25,3 +25,5 @@ Run the tests:
 
 ## Project Status
 Development in progress.
+
+Live site: https://hibaeladraoui.github.io/unit-coverter/
