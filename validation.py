@@ -1,45 +1,29 @@
-import pytest
-from validation import validate_value, validate_unit, validate_temperature
-from history import ConversionHistory
+SUPPORTED_UNITS = {
+    "length": ["m", "km", "cm", "mm", "mile", "ft", "inch"],
+    "weight": ["kg", "g", "lb", "oz"],
+    "temperature": ["C", "F", "K"],
+}
+
+ABSOLUTE_ZERO = {"C": -273.15, "F": -459.67, "K": 0}
 
 
-def test_validate_value_accepts_number():
-    assert validate_value(5) == 5.0
+def validate_value(value):
+    if isinstance(value, bool) or not isinstance(value, (int, float)):
+        raise TypeError("Value must be a number")
+    return float(value)
 
 
-def test_validate_unit_accepts_supported_unit():
-    assert validate_unit("length", "km") == "km"
+def validate_unit(category, unit):
+    if category not in SUPPORTED_UNITS:
+        raise ValueError("Unknown category: " + str(category))
+    if unit not in SUPPORTED_UNITS[category]:
+        raise ValueError("Unsupported unit: " + str(unit))
+    return unit
 
 
-def test_temperature_at_absolute_zero_is_allowed():
-    assert validate_temperature(-273.15, "C") == -273.15
-
-
-def test_temperature_below_absolute_zero_raises():
-    with pytest.raises(ValueError):
-        validate_temperature(-300, "C")
-
-
-def test_unsupported_unit_raises():
-    with pytest.raises(ValueError):
-        validate_unit("weight", "banana")
-
-
-def test_text_value_raises():
-    with pytest.raises(TypeError):
-        validate_value("abc")
-
-
-def test_history_stores_and_returns_last():
-    h = ConversionHistory()
-    h.add(1, "km", "m", 1000)
-    assert h.last(1)[0]["result"] == 1000
-
-
-def test_history_drops_oldest_when_full():
-    h = ConversionHistory(max_size=2)
-    h.add(1, "m", "cm", 100)
-    h.add(2, "m", "cm", 200)
-    h.add(3, "m", "cm", 300)
-    assert len(h) == 2
-    assert h.last(2)[0]["value"] == 2
+def validate_temperature(value, unit):
+    validate_unit("temperature", unit)
+    value = validate_value(value)
+    if value < ABSOLUTE_ZERO[unit]:
+        raise ValueError("Temperature is below absolute zero")
+    return value
